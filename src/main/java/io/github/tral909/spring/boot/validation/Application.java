@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 // тестирование через CURL
-// curl -s -X POST localhost:8888/hello -H 'content-type: application/json;charset=utf-8' -d '{"number": 11, "data": "rrrr"}' | json_pp
+// curl -s -X POST localhost:8888/hello -H 'content-type: application/json;charset=utf-8' -d '{"age": 11, "name": "rrrr", "inn": "12345"}' | json_pp
 @SpringBootApplication
 public class Application {
 
@@ -34,10 +34,12 @@ public class Application {
 }
 
 @Value
-class InputData {
-	@Max(value = 10, message = "Значение поля 'number' должно быть меньше или равно 10")
-	Integer number;
-	String data;
+class PersonDto {
+	@Max(value = 10, message = "Значение поля 'age' должно быть меньше или равно 10")
+	Integer age;
+	String name;
+	@UniqueInn
+	String inn;
 }
 
 @RestController
@@ -50,8 +52,8 @@ class HelloController {
 	}
 
 	@PostMapping("hello")
-	public InputData hello(@RequestBody @Valid InputData inputData) {
-		return inputData;
+	public PersonDto hello(@RequestBody @Valid PersonDto personDto) {
+		return personDto;
 	}
 
 	// используется для перехвата ошибок и возвращения кастомной модели ошибки с понятными сообщениями
@@ -81,15 +83,15 @@ class ErrorResponse {
 class InputDataValidator implements Validator {
 	@Override
 	public boolean supports(Class<?> aClass) {
-		return aClass.isAssignableFrom(InputData.class);
+		return aClass.isAssignableFrom(PersonDto.class);
 	}
 
 	@Override
 	public void validate(@NonNull Object o, Errors errors) {
-		InputData dto = (InputData) o;
+		PersonDto dto = (PersonDto) o;
 
-		if (dto.getData() != null && dto.getData().length() > 3) {
-			errors.reject("Длина поля 'data' не может быть больше 3 символов");
+		if (dto.getName() != null && dto.getName().length() > 3) {
+			errors.reject("Длина поля 'name' не может быть больше 3 символов");
 		}
 	}
 }

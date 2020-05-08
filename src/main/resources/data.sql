@@ -1,0 +1,1 @@
+INSERT INTO person (age, name, inn) VALUES (20, 'Валидатор', '12345');
