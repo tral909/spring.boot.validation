@@ -87,7 +87,7 @@ class InputDataValidator implements Validator {
 	}
 
 	@Override
-	public void validate(@NonNull Object o, Errors errors) {
+	public void validate(Object o, Errors errors) {
 		PersonDto dto = (PersonDto) o;
 
 		if (dto.getName() != null && dto.getName().length() > 3) {
