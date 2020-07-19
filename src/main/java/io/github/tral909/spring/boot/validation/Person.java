@@ -16,10 +16,7 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	Long id;
-
 	Integer age;
-
 	String name;
-
 	String inn;
 }

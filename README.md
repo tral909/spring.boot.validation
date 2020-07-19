@@ -1,3 +1,3 @@
 Spring Boot Validation
 -----
-This repo shows different ways how can you realize validation in web app
+This repo shows different ways how you can realize validation in web app
