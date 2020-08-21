@@ -132,14 +132,14 @@ class CountDtoValidator implements MyValidator {
 }
 
 @RestControllerAdvice
-class CommonControlleAdvice {
+class CommonControllerAdvice {
 
 	// Реестр реализаций валидаторов - валидируемый класс против интерфейса валидатора
 	// Нужны именно конкретные валидаторы (реестр через Class). Через инжекцию List<MyValidator> не работает
 	private Map<Class, MyValidator> validatorsRegistry;
 
 	@Autowired
-	public CommonControlleAdvice(List<MyValidator> validators) {
+	public CommonControllerAdvice(List<MyValidator> validators) {
 		validatorsRegistry = validators.stream().collect(Collectors.toMap(k -> k.getRequestBodyClass(), Function.identity()));
 	}
 
