@@ -70,8 +70,8 @@ class CountDto {
 @RestController
 class CountController {
 
-	@PostMapping("count")
-	public CountDto count(@RequestBody @Valid CountDto countDto) { return countDto; }
+	@PostMapping("count") // @Valid отсутствует, чтобы проверить BPP
+	public CountDto count(@RequestBody CountDto countDto) { return countDto; }
 
 }
 
@@ -171,6 +171,4 @@ class CommonControllerAdvice {
 				HttpStatus.BAD_REQUEST.getReasonPhrase(),
 				message);
 	}
-
-	//todo еще можно приделать бин пост процессор, через который проверять, что для каждого @Valid есть свой валидатор
 }
